@@ -1,4 +1,5 @@
 var slotMachine = new SlotMachine()
+var user = new User()
 var vm = new Vue({
   el: '#sanslots',
   data: {
@@ -17,7 +18,8 @@ var vm = new Vue({
     alert: {
       variant: null,
       message: null
-    }
+    },
+    user: user
   },
   created(){
     //preload images
@@ -61,6 +63,9 @@ var vm = new Vue({
          } 
         }
       }, 2000)
+    },
+    login(){
+      
     }
   }
 })
