@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SanSlots</title>
+  </head>
+  <body>
+    <div class="container my-2" id="sanslots">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+        <a class="navbar-brand" href="#">SanSlots</a>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <span class="navbar-text">
+            Match 3 bridges in a row to win.
+          </span>
+        </div>
+      </nav>
+      <div class="card-deck mb-4" v-for="row in slots">
+        <div class="card p-1" v-for="slot in row" :class="slot.cardClass">
+          <div :style="{backgroundImage: slot.img}" class="img-thumbnail text-center" alt="..." id="first-top-slot">
+            <h1 class="text-white display-2 align-middle text-center justify-content-center align-self-center font-weight-bold shadow-sm slot-type">{{slot.money}}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <button id="lever" class="btn btn-primary" @click="play()">Play Slot Machine</button>
+        </div>
+        <div class="col-9">
+          <div class="alert" :class="alert.variant" role="alert">
+            {{ alert.message }}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="js/App.js"></script>
+    <script src="js/Math.js"></script>
+    <script src="js/Tag.js"></script>
+    <script src="js/CardDeck.js"></script>
+    <script src="js/SlotMachine.js"></script>
+    <script src="js/SanSlots.js"></script>
+    <style>
+      .img-thumbnail{
+        height: 150px;
+        background-size: cover;
+        background-position: center;
+        width: 100%
+      }
+      .slot-type {
+        text-shadow: 0 0 10px #000000;
+      }
+      .win-gradient { 
+      background: -webkit-linear-gradient(304deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+      background: -moz-linear-gradient(304deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+      background: -o-linear-gradient(304deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+      background: linear-gradient(34deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+      background-size: 1800% 1800%;
+
+      -webkit-animation: rainbow 3s ease infinite;
+      -z-animation: rainbow 3s ease infinite;
+      -o-animation: rainbow 3s ease infinite;
+        animation: rainbow 3s ease infinite;}
+
+      @-webkit-keyframes rainbow {
+          0%{background-position:0% 82%}
+          50%{background-position:100% 19%}
+          100%{background-position:0% 82%}
+      }
+      @-moz-keyframes rainbow {
+          0%{background-position:0% 82%}
+          50%{background-position:100% 19%}
+          100%{background-position:0% 82%}
+      }
+      @-o-keyframes rainbow {
+          0%{background-position:0% 82%}
+          50%{background-position:100% 19%}
+          100%{background-position:0% 82%}
+      }
+      @keyframes rainbow { 
+          0%{background-position:0% 82%}
+          50%{background-position:100% 19%}
+          100%{background-position:0% 82%}
+      }
+    </style>
+  </body>
+</html>
