@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>SanSlots</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  </head>
-  <body>
-    <div class="container my-2" id="sanslots">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">SanSlots</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-<!--           <ul class="navbar-nav mr-auto">
+<head>
+  <title>SanSlots</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container my-2" id="sanslots">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">SanSlots</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!--           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
               <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
@@ -35,53 +39,86 @@
               <a class="nav-link disabled" href="#">Disabled</a>
             </li>
           </ul> -->
-          <div class="form-inline my-2 my-lg-0 ml-auto">
-            <input class="form-control mr-sm-2" type="text" placeholder="Enter username" v-model="user.name">
-            <button class="btn btn-outline-success my-2 my-sm-0" @click="login()">Login</button>
-          </div>
-        </div>
-      </nav>
-      <div class="card-deck mb-4" v-for="row in slots">
-        <div class="card p-1" v-for="slot in row" :class="slot.cardClass">
-          <div :style="{backgroundImage: slot.img}" class="img-thumbnail text-center" alt="..." id="first-top-slot">
-            <h1 class="text-white display-2 align-middle text-center justify-content-center align-self-center font-weight-bold shadow-sm slot-type">{{slot.money}}</h1>
-          </div>
+        <div class="form-inline my-2 my-lg-0 ml-auto">
+          <input class="form-control mr-sm-2" type="text" placeholder="Enter username" v-model="user.name">
+          <button class="btn btn-outline-success my-2 my-sm-0" @click="login()">Login</button>
         </div>
       </div>
-      <div class="row">
-        <div class="col-3">
-          <button id="lever" class="btn btn-primary" @click="play()" :disabled="!user.name">Play Slot Machine</button>
-        </div>
-        <div class="col-9">
-          <div class="alert" :class="alert.variant" role="alert">
-            {{ alert.message }}
-          </div>
+    </nav>
+    <div class="card-deck mb-4" v-for="row in slots">
+      <div class="card p-1" v-for="slot in row" :class="slot.cardClass">
+        <div :style="{backgroundImage: slot.img}" class="img-thumbnail text-center" alt="..." id="first-top-slot">
+          <h1
+            class="text-white display-2 align-middle text-center justify-content-center align-self-center font-weight-bold shadow-sm slot-type">
+            {{slot.money}}</h1>
         </div>
       </div>
     </div>
-    <!--     bootstrap -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <!--     vue js -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="js/User.js"></script>
-    <script src="js/SlotMachine.js"></script>
-    <script src="js/SanSlots.js"></script>
-    <style>
-      .img-thumbnail{
-        height: 150px;
-        background-size: cover;
-        background-position: center;
-        width: 100%
-      }
-      #login-form {
-        width: 300px;
-      }
-      .slot-type {
-        text-shadow: 0 0 10px #000000;
-      }
-      .win-gradient { 
+    <div class="row">
+      <div class="col-3">
+        <button id="lever" class="btn btn-primary" @click="play()" :disabled="!user.name">Play Slot Machine</button>
+      </div>
+      <div class="col-9">
+        <div class="alert" :class="alert.variant" role="alert">
+          {{ alert.message }}
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Player</th>
+              <th scope="col">High Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(player, rank) in leaderboard">
+              <th scope="row">{{rank + 1}}</th>
+              <td>{{player.name}}</td>
+              <td>{{player.highscore}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- lodash -->
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.19/lodash.min.js"></script>
+  <!--     bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <!--     vue js -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="js/User.js"></script>
+  <script src="js/SlotMachine.js"></script>
+  <script src="js/SanSlots.js"></script>
+  <style>
+    .img-thumbnail {
+      height: 150px;
+      background-size: cover;
+      background-position: center;
+      width: 100%
+    }
+
+    #login-form {
+      width: 300px;
+    }
+
+    .slot-type {
+      text-shadow: 0 0 10px #000000;
+    }
+
+    .win-gradient {
       background: -webkit-linear-gradient(304deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
       background: -moz-linear-gradient(304deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
       background: -o-linear-gradient(304deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
@@ -91,28 +128,65 @@
       -webkit-animation: rainbow 3s ease infinite;
       -z-animation: rainbow 3s ease infinite;
       -o-animation: rainbow 3s ease infinite;
-        animation: rainbow 3s ease infinite;}
+      animation: rainbow 3s ease infinite;
+    }
 
-      @-webkit-keyframes rainbow {
-          0%{background-position:0% 82%}
-          50%{background-position:100% 19%}
-          100%{background-position:0% 82%}
+    @-webkit-keyframes rainbow {
+      0% {
+        background-position: 0% 82%
       }
-      @-moz-keyframes rainbow {
-          0%{background-position:0% 82%}
-          50%{background-position:100% 19%}
-          100%{background-position:0% 82%}
+
+      50% {
+        background-position: 100% 19%
       }
-      @-o-keyframes rainbow {
-          0%{background-position:0% 82%}
-          50%{background-position:100% 19%}
-          100%{background-position:0% 82%}
+
+      100% {
+        background-position: 0% 82%
       }
-      @keyframes rainbow { 
-          0%{background-position:0% 82%}
-          50%{background-position:100% 19%}
-          100%{background-position:0% 82%}
+    }
+
+    @-moz-keyframes rainbow {
+      0% {
+        background-position: 0% 82%
       }
-    </style>
-  </body>
+
+      50% {
+        background-position: 100% 19%
+      }
+
+      100% {
+        background-position: 0% 82%
+      }
+    }
+
+    @-o-keyframes rainbow {
+      0% {
+        background-position: 0% 82%
+      }
+
+      50% {
+        background-position: 100% 19%
+      }
+
+      100% {
+        background-position: 0% 82%
+      }
+    }
+
+    @keyframes rainbow {
+      0% {
+        background-position: 0% 82%
+      }
+
+      50% {
+        background-position: 100% 19%
+      }
+
+      100% {
+        background-position: 0% 82%
+      }
+    }
+  </style>
+</body>
+
 </html>
