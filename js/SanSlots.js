@@ -62,6 +62,8 @@ var SanSlots = new Vue({
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
     })
+    // Check if player username was saved
+    if (localStorage.getItem('username')) this.username = localStorage.getItem('username')
   },
   methods: {
     play() {
@@ -123,10 +125,10 @@ var SanSlots = new Vue({
         }).then((snap) => {
           this.userID = snap.key
         })
-
-
         console.log("No user found. Created new user.", this.user, this.username, this.userID)
       }
+      // remember the player username so when they come back to the site they don't have to enter it again
+      localStorage.setItem('username', this.username)
     }
   }
 })

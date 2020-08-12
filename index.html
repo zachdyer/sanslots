@@ -24,7 +24,7 @@
         </div>
       </div>
     </nav>
-    <div class="card-deck mb-4" v-for="row in slots">
+    <div class="card-deck my-2" v-for="row in slots">
       <div class="card p-1" v-for="slot in row" :class="slot.cardClass">
         <div :style="{backgroundImage: slot.img}" class="img-thumbnail text-center" alt="..." id="first-top-slot">
           <h1
