@@ -17,30 +17,9 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <!--           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-          </ul> -->
+
         <div class="form-inline my-2 my-lg-0 ml-auto">
-          <input class="form-control mr-sm-2" type="text" placeholder="Enter username" v-model="user.name">
+          <input class="form-control mr-sm-2" type="text" placeholder="Enter username" v-model="username">
           <button class="btn btn-outline-success my-2 my-sm-0" @click="login()">Login</button>
         </div>
       </div>
@@ -56,11 +35,17 @@
     </div>
     <div class="row">
       <div class="col-3">
-        <button id="lever" class="btn btn-primary" @click="play()" :disabled="!user.name">Play Slot Machine</button>
+        <button id="lever" class="btn btn-primary btn-block" @click="play()" :disabled="!username">
+          Play Slot Machine</button>
       </div>
-      <div class="col-9">
+      <div class="col-6">
         <div class="alert" :class="alert.variant" role="alert">
           {{ alert.message }}
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="alert alert-info">
+          Score: {{ score }}
         </div>
       </div>
     </div>
@@ -85,6 +70,13 @@
       </div>
     </div>
   </div>
+  <!--The core Firebase JS SDK is always required and must be listed first-->
+  <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+  <!--TODO: Add SDKs for Firebase products that you want to use
+  https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
   <!-- lodash -->
   <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.19/lodash.min.js"></script>
   <!--     bootstrap -->

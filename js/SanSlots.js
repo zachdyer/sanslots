@@ -20,7 +20,12 @@ var SanSlots = new Vue({
       message: null
     },
     user: user,
-    leaderboard: null
+    username: null,
+    userID: null,
+    leaderboard: null,
+    database: null,
+    score: 0,
+    snapshot: null
   },
   created() {
     //preload images
@@ -30,15 +35,33 @@ var SanSlots = new Vue({
     }
     //preload slot animation
     this.slotAnimation = new Image().src = 'img/loading.3.gif'
-    console.log(this.slots)
-    // order the leaderboard by highscore
-    let leaderBoard = [
-      { name: "Zachio", highscore: 250 },
-      { name: "404", highscore: 500 },
-      { name: "Jon", highscore: 2500 },
-      { name: "James", highscore: 700 },
-    ]
-    this.leaderboard = _.orderBy(leaderBoard, 'highscore', 'desc')
+
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyA5JIbP0QuQb0q-QMXdRPy5HvegfVdAv0I",
+      authDomain: "sanslots-c99b4.firebaseapp.com",
+      databaseURL: "https://sanslots-c99b4.firebaseio.com",
+      projectId: "sanslots-c99b4",
+      storageBucket: "sanslots-c99b4.appspot.com",
+      messagingSenderId: "930737392621",
+      appId: "1:930737392621:web:981561164cb6cbde6cb5e4",
+      measurementId: "G-7YQVWSLZ0F"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+
+    // Get a reference to the database service
+    this.database = firebase.database()
+    this.database.ref('leaderboard').on("value", (snapshot) => {
+      // order the leaderboard by highscore
+      this.leaderboard = _.orderBy(snapshot.val(), 'highscore', 'desc')
+      // save original order to maintain user ids
+      this.snapshot = snapshot.val()
+      console.log(snapshot.val())
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    })
   },
   methods: {
     play() {
@@ -51,7 +74,6 @@ var SanSlots = new Vue({
           this.slots[x][y].type = this.slots[x][y].money = this.slots[x][y].cardClass = ''
         }
       }
-      console.log(this.slots)
       // Reset alert box to null
       this.alert.variant = null
       this.alert.message = null
@@ -64,17 +86,47 @@ var SanSlots = new Vue({
             this.slots[x][y].type = slotVal
             this.slots[x][y].money = `$${slotVal}0`
             this.slots[x][y].cardClass = slotMachine.winnerSlots[x][y] ? 'win-gradient' : ''
-            // If won then update the alert box
-            if (slotMachine.winnings) {
-              this.alert.message = `You win $${slotMachine.winnings}!`
-              this.alert.variant = 'alert-success'
-            }
           }
+        }
+        // Check If won
+        if (slotMachine.winnings) {
+          // Update alert message
+          this.alert.message = `You win $${slotMachine.winnings}!`
+          this.alert.variant = 'alert-success'
+          //Add to score
+          this.score += slotMachine.winnings
+          // send new score to database
+          this.database.ref('leaderboard/' + this.userID).set({
+            name: this.username,
+            highscore: this.score
+          })
         }
       }, 2000)
     },
     login() {
+      // reset score so if they switch usernames it doesn't just add the too together
+      this.score = 0
+      this.userID = null
+      //Check if user exists in leaderboard
+      if (_.find(this.leaderboard, { name: this.username })) {
+        this.user = _.find(this.leaderboard, { name: this.username })
+        // add highscore to score
+        this.score += this.user.highscore
+        // get user id
+        this.userID = _.findKey(this.snapshot, { 'name': this.username });
+        console.log(this.user, this.userID)
+      } else {
+        // create a new user
+        let newuser = this.database.ref('leaderboard').push({
+          name: this.username,
+          highscore: this.score
+        }).then((snap) => {
+          this.userID = snap.key
+        })
 
+
+        console.log("No user found. Created new user.", this.user, this.username, this.userID)
+      }
     }
   }
 })
