@@ -59,11 +59,19 @@ var SanSlots = new Vue({
       // save original order to maintain user ids
       this.snapshot = snapshot.val()
       console.log(snapshot.val())
+      // Check if player username was saved
+      if (localStorage.getItem('username')) {
+        this.username = localStorage.getItem('username')
+        this.user = _.find(this.leaderboard, { name: this.username })
+        // add highscore to score
+        this.score = this.user.highscore
+        // get user id
+        this.userID = _.findKey(this.snapshot, { 'name': this.username });
+      }
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
     })
-    // Check if player username was saved
-    if (localStorage.getItem('username')) this.username = localStorage.getItem('username')
+
   },
   methods: {
     play() {
@@ -107,13 +115,13 @@ var SanSlots = new Vue({
     },
     login() {
       // reset score so if they switch usernames it doesn't just add the too together
-      this.score = 0
-      this.userID = null
+      // this.score = 0
+      // this.userID = null
       //Check if user exists in leaderboard
       if (_.find(this.leaderboard, { name: this.username })) {
         this.user = _.find(this.leaderboard, { name: this.username })
         // add highscore to score
-        this.score += this.user.highscore
+        this.score = this.user.highscore
         // get user id
         this.userID = _.findKey(this.snapshot, { 'name': this.username });
         console.log(this.user, this.userID)
@@ -129,6 +137,7 @@ var SanSlots = new Vue({
       }
       // remember the player username so when they come back to the site they don't have to enter it again
       localStorage.setItem('username', this.username)
+      localStorage.setItem('userID', this.userID)
     }
   }
 })
